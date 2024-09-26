@@ -29,11 +29,11 @@ export class IconButtonComponent {
     switch (this.color) {
       case 'green':
         this.tailwindColorClass =
-          'text-green-500 hover:border-green-500 hover:bg-green-500 hover:text-green-950';
+          'text-green-500 hover:border-green-500 hover:bg-green-500 hover:text-white';
         break;
       case 'red':
         this.tailwindColorClass =
-          'text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-red-950';
+          'text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-white';
         break;
       default:
         throw new Error(`Unsupported color: ${this.color}`);
