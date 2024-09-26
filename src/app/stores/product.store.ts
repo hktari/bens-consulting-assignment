@@ -14,8 +14,9 @@ export class ProductStore {
   getProducts() {
     return this.products();
   }
-  getSingleProduct(id: number) {
-    return this.products().find((p) => p.id == id);
+
+  fetchSingleProduct(id: number) {
+    return this.http.get<Product>('http://localhost:3000/products/' + id);
   }
 
   fetchProducts() {
