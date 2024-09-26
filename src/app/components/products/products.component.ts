@@ -1,9 +1,9 @@
-// src/app/components/products/products.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ProductStore } from '../../stores/product.store';
 import { Product } from '../../models/product.model';
 import { RouterLink } from '@angular/router';
 
+// TODO: move ProductItem into separate component
 @Component({
   standalone: true,
   imports: [RouterLink],
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
       <h1 class="text-2xl font-bold mb-4">Products</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="border p-4 rounded">
-          @for (product of productStore.getProducts(); track product.id) {
+          @for (product of productStore.getProducts(); track product.id) { 
           <h2 class="text-xl font-semibold">{{ product?.name }}</h2>
           <p>Price: {{ product?.price }}</p>
           <div class="mt-2">
@@ -29,7 +29,7 @@ import { RouterLink } from '@angular/router';
               Edit
             </button>
             <button
-              (click)="deleteProduct(product?.id)"
+              (click)="deleteProduct(product?.id!)"
               class="text-red-500 hover:underline"
             >
               Delete
