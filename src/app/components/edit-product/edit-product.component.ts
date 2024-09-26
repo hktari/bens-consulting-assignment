@@ -8,10 +8,13 @@ import {
 } from '@angular/forms';
 import { ProductStore } from '../../stores/product.store';
 import { Product } from '../../models/product.model';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { matSaveRound } from '@ng-icons/material-icons/round';
 
 @Component({
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIconComponent],
+  viewProviders: [provideIcons({ matSaveRound })],
   selector: 'app-edit-product',
   template: `
     <div class="p-4">
@@ -25,7 +28,7 @@ import { Product } from '../../models/product.model';
             type="text"
             id="name"
             formControlName="name"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           />
         </div>
         <div>
@@ -38,17 +41,17 @@ import { Product } from '../../models/product.model';
             id="description"
             formControlName="description"
             rows="3"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           ></textarea>
         </div>
 
         <div>
           <button
             type="submit"
-            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            class="inline-flex justify-center py-2 px-4 border font-medium  text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-2xl"
             [disabled]="!productForm.valid"
           >
-            Save Changes
+            <ng-icon name="matSaveRound"></ng-icon>
           </button>
         </div>
       </form>
