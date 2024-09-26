@@ -21,13 +21,18 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
     provideIcons({ matDeleteOutline, matModeEditOutlineOutline }),
   ],
   template: `
-    <div class="border rounded">
+    <div>
       @if(!isEditing){
-      <a [routerLink]="['/product', product.id]" class="p-4 flex items-center">
-        <h2 class="text-xl font-semibold flex-grow">
-          {{ product.product_name }}
-        </h2>
-        <div class="mt-2 grid gap-3 grid-rows-1 grid-cols-2">
+      <div class="grid grid-rows-1 grid-cols-[1fr_auto] gap-2">
+        <a
+          [routerLink]="['/product', product.id]"
+          class="p-4 border rounded  flex items-center"
+        >
+          <h2 class="text-xl font-semibold flex-grow">
+            {{ product.product_name }}
+          </h2>
+        </a>
+        <div class="grid gap-3 grid-rows-2 grid-cols-1">
           <app-icon-button (onClick)="onEdit()" color="green">
             <ng-icon name="matModeEditOutlineOutline"></ng-icon>
           </app-icon-button>
@@ -36,7 +41,7 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
             <ng-icon name="matDeleteOutline"></ng-icon>
           </app-icon-button>
         </div>
-      </a>
+      </div>
       }@else{
       <app-edit-product
         [product]="product"
