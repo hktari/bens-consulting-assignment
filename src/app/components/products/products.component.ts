@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
       <h1 class="text-2xl font-bold mb-4">Products</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="border p-4 rounded">
-          @for (product of productStore.getProducts(); track product.id) { 
+          @for (product of productStore.getProducts(); track product.id) {
           <h2 class="text-xl font-semibold">{{ product?.name }}</h2>
           <p>Price: {{ product?.price }}</p>
           <div class="mt-2">
@@ -22,12 +22,11 @@ import { RouterLink } from '@angular/router';
               class="text-blue-500 hover:underline mr-2"
               >View</a
             >
-            <button
-              (click)="editProduct(product)"
+            <a
+              [routerLink]="['/edit-product', product.id]"
               class="text-green-500 hover:underline mr-2"
+              >Edit</a
             >
-              Edit
-            </button>
             <button
               (click)="deleteProduct(product?.id!)"
               class="text-red-500 hover:underline"
@@ -46,10 +45,6 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.productStore.fetchProducts();
-  }
-
-  editProduct(product: Product) {
-    // Implement edit functionality
   }
 
   deleteProduct(id: number) {
