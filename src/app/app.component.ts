@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductsComponent } from './components/products/products.component';
 import { RouterOutlet } from '@angular/router';
-import { LogoComponent } from './logo/logo.component';
+import { LogoComponent } from './components/logo/logo.component';
 
 @Component({
   standalone: true,
