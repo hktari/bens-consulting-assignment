@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
 @Component({
@@ -8,7 +8,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
   template: `
     <button
-      (click)="onClick()"
+      (click)="handleClick()"
       class="{{
         tailwindColorClass
       }} border-2 flex items-center justify-center w-10 h-10 text-2xl"
@@ -19,14 +19,11 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 })
 export class IconButtonComponent {
   @Input() color: string = 'green';
-  @Input() icon!: NgIconComponent;
-  @Input() onClick: () => void = () => {};
+  @Output() onClick = new EventEmitter<void>();
 
   tailwindColorClass: string = '';
 
-  constructor() {
-    this.onClick = this.onClick.bind(this);
-  }
+  constructor() {}
 
   ngOnInit() {
     switch (this.color) {
@@ -41,5 +38,9 @@ export class IconButtonComponent {
       default:
         throw new Error(`Unsupported color: ${this.color}`);
     }
+  }
+
+  handleClick() {
+    this.onClick.emit();
   }
 }
