@@ -14,9 +14,6 @@ import { RouterOutlet } from '@angular/router';
         >
       </div>
     </nav>
-    <div class="container mx-auto p-4">
-      <app-products></app-products>
-    </div>
     <router-outlet></router-outlet>
   `,
 })
