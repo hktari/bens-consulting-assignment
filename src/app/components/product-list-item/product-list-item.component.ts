@@ -28,7 +28,7 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
       </div>
       }@else{
       <app-edit-product
-        [id]="product.id"
+        [product]="product"
         (saveComplete)="onSaveComplete()"
       ></app-edit-product>
       }

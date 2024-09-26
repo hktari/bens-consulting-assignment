@@ -66,7 +66,7 @@ import { Product } from '../../models/product.model';
   `,
 })
 export class EditProductComponent implements OnInit {
-  @Input() id!: number;
+  @Input() product: Product | undefined;
   @Output() saveComplete = new EventEmitter<void>();
   productForm!: FormGroup;
 
@@ -77,26 +77,16 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: [0, [Validators.required, Validators.min(0)]],
-    });
-
-    this.loadProduct();
-  }
-
-  loadProduct() {
-    this.productStore.fetchSingleProduct(this.id).subscribe((product) => {
-      if (product) {
-        this.productForm.patchValue(product);
-      }
+      name: [this.product?.name, Validators.required],
+      description: [this.product?.description, Validators.required],
+      price: [this.product?.price, [Validators.required, Validators.min(0)]],
     });
   }
 
   onSubmit() {
     if (this.productForm.valid) {
       const updatedProduct: Product = {
-        id: this.id,
+        id: this.product?.id,
         ...this.productForm.value,
       };
       this.productStore.updateProduct(updatedProduct);
