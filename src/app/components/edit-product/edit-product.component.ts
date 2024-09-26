@@ -1,5 +1,5 @@
 // src/app/components/edit-product/edit-product.component.ts
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,14 +8,13 @@ import {
 } from '@angular/forms';
 import { ProductStore } from '../../stores/product.store';
 import { Product } from '../../models/product.model';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
-  selector: 'app-edit-product',
   imports: [ReactiveFormsModule],
+  selector: 'app-edit-product',
   template: `
-    <div class="container mx-auto p-4">
+    <div class="p-4">
       <h2 class="text-2xl font-bold mb-4">Edit Product</h2>
       <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-4">
         <div>
@@ -67,13 +66,13 @@ import { ActivatedRoute } from '@angular/router';
   `,
 })
 export class EditProductComponent implements OnInit {
+  @Input() id!: number;
+  @Output() saveComplete = new EventEmitter<void>();
   productForm!: FormGroup;
-  id!: number;
 
   constructor(
     private formBuilder: FormBuilder,
-    private productStore: ProductStore,
-    private route: ActivatedRoute
+    private productStore: ProductStore
   ) {}
 
   ngOnInit() {
@@ -83,8 +82,10 @@ export class EditProductComponent implements OnInit {
       price: [0, [Validators.required, Validators.min(0)]],
     });
 
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadProduct();
+  }
 
+  loadProduct() {
     this.productStore.fetchSingleProduct(this.id).subscribe((product) => {
       if (product) {
         this.productForm.patchValue(product);
@@ -99,6 +100,7 @@ export class EditProductComponent implements OnInit {
         ...this.productForm.value,
       };
       this.productStore.updateProduct(updatedProduct);
+      this.saveComplete.emit();
     }
   }
 }
