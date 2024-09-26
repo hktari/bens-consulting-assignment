@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductStore } from '../../stores/product.store';
-import { Product } from '../../models/product.model';
+import { Product, ProductId } from '../../models/product.model';
 import { RouterLink } from '@angular/router';
 import { ProductListItemComponent } from '../product-list-item/product-list-item.component';
 
@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit {
     this.productStore.fetchProducts();
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: ProductId) {
     this.productStore.deleteProduct(id);
   }
 }

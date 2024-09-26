@@ -41,17 +41,7 @@ import { Product } from '../../models/product.model';
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           ></textarea>
         </div>
-        <div>
-          <label for="price" class="block text-sm font-medium text-gray-700"
-            >Price</label
-          >
-          <input
-            type="number"
-            id="price"
-            formControlName="price"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          />
-        </div>
+
         <div>
           <button
             type="submit"
@@ -77,17 +67,17 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = this.formBuilder.group({
-      name: [this.product?.name, Validators.required],
+      name: [this.product?.product_name, Validators.required],
       description: [this.product?.description, Validators.required],
-      price: [this.product?.price, [Validators.required, Validators.min(0)]],
     });
   }
 
   onSubmit() {
-    if (this.productForm.valid) {
+    if (this.productForm.valid && this.product) {
       const updatedProduct: Product = {
-        id: this.product?.id,
-        ...this.productForm.value,
+        ...this.product,
+        product_name: this.productForm.value.name,
+        description: this.productForm.value.description,
       };
       this.productStore.updateProduct(updatedProduct);
       this.saveComplete.emit();

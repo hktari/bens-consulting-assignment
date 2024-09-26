@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { signal } from '@angular/core';
-import { Product } from '../models/product.model';
+import { Product, ProductId } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class ProductStore {
     return this.products();
   }
 
-  fetchSingleProduct(id: number) {
+  fetchSingleProduct(id: ProductId) {
     return this.http.get<Product>('http://localhost:3000/products/' + id);
   }
 
@@ -43,7 +43,7 @@ export class ProductStore {
       );
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: ProductId) {
     this.http
       .delete(`http://localhost:3000/products/${id}`)
       .subscribe(() =>

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { Product, ProductId } from '../../models/product.model';
 import { RouterLink } from '@angular/router';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 
@@ -11,8 +11,7 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
     <div class="border p-4 rounded">
       @if(!isEditing){
 
-      <h2 class="text-xl font-semibold">{{ product.name }}</h2>
-      <p>Price: {{ product.price }}</p>
+      <h2 class="text-xl font-semibold">{{ product.product_name }}</h2>
       <div class="mt-2">
         <a
           [routerLink]="['/product', product.id]"
@@ -37,7 +36,7 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
 })
 export class ProductListItemComponent {
   @Input() product!: Product;
-  @Output() delete = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<ProductId>();
 
   isEditing = false;
 

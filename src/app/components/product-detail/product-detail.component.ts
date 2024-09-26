@@ -11,9 +11,8 @@ import { Observable } from 'rxjs';
   template: `
     @if(product){
     <div class="container mx-auto p-4">
-      <h1 class="text-2xl font-bold mb-4">{{ product?.name }}</h1>
-      <p class="mb-2">Price: {{ product?.price }}</p>
-      <p>{{ product?.description }}</p>
+      <h1 class="text-2xl font-bold mb-4">{{ product.product_name }}</h1>
+      <p>{{ product.description }}</p>
     </div>
     }@else{
     <div class="container mx-auto p-4">
