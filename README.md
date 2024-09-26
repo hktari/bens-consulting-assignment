@@ -13,5 +13,6 @@ On the backend it uses:
 
 # How to run
 
+1. `npm install`
 1. `npm run json-server`
 2. `npm run start`
