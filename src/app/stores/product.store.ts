@@ -12,7 +12,7 @@ export class ProductStore {
   constructor(private http: HttpClient) {}
 
   getProducts() {
-    return this.products;
+    return this.products();
   }
 
   fetchProducts() {
