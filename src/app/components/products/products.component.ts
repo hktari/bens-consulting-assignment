@@ -12,10 +12,8 @@ import { RouterLink } from '@angular/router';
     <div class="container mx-auto p-4">
       <h1 class="text-2xl font-bold mb-4">Products</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div
-          *ngFor="let product of productStore.getProducts()"
-          class="border p-4 rounded"
-        >
+        <div class="border p-4 rounded">
+          @for (product of productStore.getProducts(); track product.id) {
           <h2 class="text-xl font-semibold">{{ product?.name }}</h2>
           <p>Price: {{ product?.price }}</p>
           <div class="mt-2">
@@ -37,16 +35,17 @@ import { RouterLink } from '@angular/router';
               Delete
             </button>
           </div>
+          }
         </div>
       </div>
     </div>
   `,
 })
 export class ProductsComponent implements OnInit {
-  constructor() {}
+  constructor(public productStore: ProductStore) {}
 
   ngOnInit() {
-    // this.productStore.fetchProducts();
+    this.productStore.fetchProducts();
   }
 
   editProduct(product: Product) {
@@ -54,6 +53,6 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    // this.productStore.deleteProduct(id);
+    this.productStore.deleteProduct(id);
   }
 }
