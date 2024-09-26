@@ -1,30 +1,42 @@
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product, ProductId } from '../../models/product.model';
 import { RouterLink } from '@angular/router';
 import { EditProductComponent } from '../edit-product/edit-product.component';
-
+import {
+  matDeleteOutline,
+  matModeEditOutlineOutline,
+} from '@ng-icons/material-icons/outline';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 @Component({
   standalone: true,
-  imports: [RouterLink, EditProductComponent],
+  imports: [
+    RouterLink,
+    EditProductComponent,
+    NgIconComponent,
+    IconButtonComponent,
+  ],
   selector: 'app-product-list-item',
+  viewProviders: [
+    provideIcons({ matDeleteOutline, matModeEditOutlineOutline }),
+  ],
   template: `
-    <div class="border p-4 rounded">
+    <div class="border rounded">
       @if(!isEditing){
+      <a [routerLink]="['/product', product.id]" class="p-4 flex items-center">
+        <h2 class="text-xl font-semibold flex-grow">
+          {{ product.product_name }}
+        </h2>
+        <div class="mt-2 grid gap-3 grid-rows-1 grid-cols-2">
+          <app-icon-button (onClick)="onEdit()" color="green">
+            <ng-icon name="matModeEditOutlineOutline"></ng-icon>
+          </app-icon-button>
 
-      <h2 class="text-xl font-semibold">{{ product.product_name }}</h2>
-      <div class="mt-2">
-        <a
-          [routerLink]="['/product', product.id]"
-          class="text-blue-500 hover:underline mr-2"
-          >View</a
-        >
-        <button (click)="onEdit()" class="text-green-500 hover:underline mr-2">
-          Edit
-        </button>
-        <button (click)="onDelete()" class="text-red-500 hover:underline">
-          Delete
-        </button>
-      </div>
+          <app-icon-button (onClick)="onDelete()" color="red">
+            <ng-icon name="matDeleteOutline"></ng-icon>
+          </app-icon-button>
+        </div>
+      </a>
       }@else{
       <app-edit-product
         [product]="product"
