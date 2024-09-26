@@ -5,8 +5,13 @@ import { NgOptimizedImage } from '@angular/common';
   selector: 'app-logo',
   standalone: true,
   imports: [NgOptimizedImage],
-  template: `<img [ngSrc]="logoUrl" height="58" width="200" alt="bens consulting logo" priority />`,
-  styleUrl: './logo.component.css',
+  template: `<img
+    [ngSrc]="logoUrl"
+    height="58"
+    width="200"
+    alt="bens consulting logo"
+    priority
+  />`,
 })
 export class LogoComponent {
   logoUrl = '/assets/images/bens-logo.png';

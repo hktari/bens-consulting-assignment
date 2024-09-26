@@ -1,4 +1,3 @@
-// src/app/components/edit-product/edit-product.component.ts
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormBuilder,

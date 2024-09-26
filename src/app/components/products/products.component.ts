@@ -4,7 +4,6 @@ import { Product, ProductId } from '../../models/product.model';
 import { RouterLink } from '@angular/router';
 import { ProductListItemComponent } from '../product-list-item/product-list-item.component';
 
-// TODO: move ProductItem into separate component
 @Component({
   standalone: true,
   imports: [RouterLink, ProductListItemComponent],

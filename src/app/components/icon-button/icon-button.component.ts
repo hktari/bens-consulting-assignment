@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
 @Component({
   selector: 'app-icon-button',
   standalone: true,
   imports: [],
-
   template: `
     <button
       (click)="handleClick()"
@@ -20,10 +18,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 export class IconButtonComponent {
   @Input() color: string = 'green';
   @Output() onClick = new EventEmitter<void>();
-
   tailwindColorClass: string = '';
-
-  constructor() {}
 
   ngOnInit() {
     switch (this.color) {

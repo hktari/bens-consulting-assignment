@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductStore } from '../../stores/product.store';
 import { Product } from '../../models/product.model';
-import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
-
   selector: 'app-product-detail',
   template: `
     @if(product){
