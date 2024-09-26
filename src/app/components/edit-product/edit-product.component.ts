@@ -68,6 +68,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditProductComponent implements OnInit {
   productForm!: FormGroup;
+  id!: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -82,9 +83,9 @@ export class EditProductComponent implements OnInit {
       price: [0, [Validators.required, Validators.min(0)]],
     });
 
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.productStore.fetchSingleProduct(id).subscribe((product) => {
+    this.productStore.fetchSingleProduct(this.id).subscribe((product) => {
       if (product) {
         this.productForm.patchValue(product);
       }
