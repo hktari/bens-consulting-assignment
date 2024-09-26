@@ -1,8 +1,14 @@
 // src/app/components/edit-product/edit-product.component.ts
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ProductStore } from '../../stores/product.store';
 import { Product } from '../../models/product.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -61,12 +67,12 @@ import { Product } from '../../models/product.model';
   `,
 })
 export class EditProductComponent implements OnInit {
-  @Input() id!: number;
   productForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private productStore: ProductStore
+    private productStore: ProductStore,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -76,12 +82,12 @@ export class EditProductComponent implements OnInit {
       price: [0, [Validators.required, Validators.min(0)]],
     });
 
-    this.loadProduct();
-  }
+    const id = Number(this.route.snapshot.paramMap.get('id'));
 
-  loadProduct() {
-    this.productStore.fetchSingleProduct(this.id).subscribe((product) => {
-      this.productForm.patchValue(product);
+    this.productStore.fetchSingleProduct(id).subscribe((product) => {
+      if (product) {
+        this.productForm.patchValue(product);
+      }
     });
   }
 
