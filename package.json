@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "json-server": "json-server --watch db.json",
+    "json-server:generate": "node ./backend/generateDb.js",
+    "json-server": "npm run json-server:generate && json-server --watch ./backend/db.json",
     "test": "ng test"
   },
   "private": true,
