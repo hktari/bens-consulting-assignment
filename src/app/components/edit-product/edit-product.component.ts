@@ -27,7 +27,7 @@ import { matSaveRound } from '@ng-icons/material-icons/round';
             type="text"
             id="name"
             formControlName="name"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           />
         </div>
         <div>
@@ -40,7 +40,7 @@ import { matSaveRound } from '@ng-icons/material-icons/round';
             id="description"
             formControlName="description"
             rows="3"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           ></textarea>
         </div>
 
