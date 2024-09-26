@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
 import { ProductsComponent } from './components/products/products.component';
 import { RouterOutlet } from '@angular/router';
+import { LogoComponent } from './logo/logo.component';
 
 @Component({
   standalone: true,
-  imports: [RouterOutlet, ProductsComponent],
+  imports: [RouterOutlet, ProductsComponent, LogoComponent],
   selector: 'app-root',
   template: `
-    <nav class="bg-gray-800 p-4">
+    <nav class="bg-gray-200 p-4">
       <div class="container mx-auto">
-        <a routerLink="/products" class="text-white font-bold"
-          >Product Management</a
-        >
+        <app-logo></app-logo>
       </div>
     </nav>
     <router-outlet></router-outlet>
   `,
 })
-export class AppComponent {}
+export class AppComponent {
+  logoUrl = '/assets/images/logo.svg';
+}
