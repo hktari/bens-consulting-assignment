@@ -11,7 +11,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       (click)="handleClick()"
       class="{{
         tailwindColorClass
-      }} border-2 flex items-center justify-center w-10 h-10 text-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-200"
+      }} border-2 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-2xl md:text-3xl disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-200"
     >
       <ng-content></ng-content>
     </button>
