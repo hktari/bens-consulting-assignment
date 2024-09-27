@@ -6,10 +6,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   imports: [],
   template: `
     <button
+      [disabled]="disabled"
+      [type]="type"
       (click)="handleClick()"
       class="{{
         tailwindColorClass
-      }} border-2 flex items-center justify-center w-10 h-10 text-2xl"
+      }} border-2 flex items-center justify-center w-10 h-10 text-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-200"
     >
       <ng-content></ng-content>
     </button>
@@ -17,6 +19,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class IconButtonComponent {
   @Input() color: string = 'green';
+  @Input() disabled: boolean = false;
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Output() onClick = new EventEmitter<void>();
   tailwindColorClass: string = '';
 
@@ -29,6 +33,10 @@ export class IconButtonComponent {
       case 'red':
         this.tailwindColorClass =
           'text-red-500 hover:border-red-500 hover:bg-red-500 hover:text-white';
+        break;
+      case 'blue':
+        this.tailwindColorClass =
+          'text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-white';
         break;
       default:
         throw new Error(`Unsupported color: ${this.color}`);

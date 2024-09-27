@@ -9,14 +9,15 @@ import { ProductStore } from '../../stores/product.store';
 import { Product } from '../../models/product.model';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { matSaveRound } from '@ng-icons/material-icons/round';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 
 @Component({
   standalone: true,
-  imports: [ReactiveFormsModule, NgIconComponent],
+  imports: [ReactiveFormsModule, NgIconComponent, IconButtonComponent],
   viewProviders: [provideIcons({ matSaveRound })],
   selector: 'app-edit-product',
   template: `
-    <div class="p-4">
+    <div class="p-4 border rounded">
       <h2 class="text-2xl font-bold mb-4">Edit Product</h2>
       <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-4">
         <div>
@@ -45,13 +46,13 @@ import { matSaveRound } from '@ng-icons/material-icons/round';
         </div>
 
         <div>
-          <button
+          <app-icon-button
+            color="blue"
             type="submit"
-            class="inline-flex justify-center py-2 px-4 border font-medium  text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-2xl"
             [disabled]="!productForm.valid"
           >
             <ng-icon name="matSaveRound"></ng-icon>
-          </button>
+          </app-icon-button>
         </div>
       </form>
     </div>
