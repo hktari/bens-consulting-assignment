@@ -16,7 +16,9 @@ import { CommonModule } from '@angular/common';
   ],
   selector: 'app-product-list',
   template: `
-    <div class="container mx-auto p-10">
+    <div class="container max-w-screen-md mx-auto">
+      <h1 class="text-4xl font-bold mb-4">Products</h1>
+
       <form [formGroup]="filterForm">
         <div class="mb-4">
           <input
@@ -35,19 +37,18 @@ import { CommonModule } from '@angular/common';
           </select>
         </div>
       </form>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="p-4" *ngFor="let product of filteredProducts">
-          <app-product-list-item
-            [product]="product"
-            (delete)="deleteProduct($event)"
-          ></app-product-list-item>
-        </div>
-        <div
-          *ngIf="filteredProducts.length === 0"
-          class="text-center text-gray-500"
-        >
-          No products found
-        </div>
+      <div class="space-y-20">
+        <app-product-list-item
+          *ngFor="let product of filteredProducts"
+          [product]="product"
+          (delete)="deleteProduct($event)"
+        ></app-product-list-item>
+      </div>
+      <div
+        *ngIf="filteredProducts.length === 0"
+        class="text-center text-gray-500"
+      >
+        No products found
       </div>
     </div>
   `,

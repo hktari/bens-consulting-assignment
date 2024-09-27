@@ -23,12 +23,12 @@ import { NgOptimizedImage } from '@angular/common';
     provideIcons({ matDeleteOutline, matModeEditOutlineOutline }),
   ],
   template: `
-    <div class="py-3 w-96">
+    <div class="py-2 md:min-w-96 w-full">
       @if(!isEditing){
-      <div class="grid grid-rows-1 grid-cols-[1fr_auto] gap-2">
+      <div class="grid grid-rows-1 grid-cols-[1fr_auto] gap-1 md:gap-2">
         <a
           [routerLink]="['/product', product.id]"
-          class="p-4 border rounded justify-items-center grid grid-cols-[5rem_1fr] gap-2 grid-rows-1 hover:bg-blue-100 hover:border-blue-500"
+          class="p-4 border rounded grid grid-cols-[5rem_1fr] gap-8 grid-rows-1 hover:bg-blue-100 hover:border-blue-500"
         >
           <img
             [src]="product.logo"
@@ -51,7 +51,7 @@ import { NgOptimizedImage } from '@angular/common';
             </div>
           </div>
         </a>
-        <div class="grid gap-2 grid-rows-2 grid-cols-1">
+        <div class="flex gap-2 flex-col justify-between">
           <app-icon-button (onClick)="onEdit()" color="green">
             <ng-icon name="matModeEditOutlineOutline"></ng-icon>
           </app-icon-button>
