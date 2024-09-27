@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProductListItemComponent } from '../components/product-list-item/product-list-item.component';
 import { Product, ProductId } from '../models/product.model';
@@ -8,27 +8,35 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [RouterLink, ProductListItemComponent, CommonModule],
+  imports: [
+    RouterLink,
+    ProductListItemComponent,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   selector: 'app-product-list',
   template: `
     <div class="container mx-auto p-10">
       <h1 class="text-4xl font-bold mb-4">Products</h1>
-      <div class="mb-4">
-        <input
-          type="text"
-          placeholder="Search by name or creator"
-          class="p-2 border rounded w-full"
-          formControlName="search"
-        />
-      </div>
-      <div class="mb-4">
-        <select class="p-2 border rounded w-full" formControlName="language">
-          <option value="">All Languages</option>
-          <option *ngFor="let lang of languages" [value]="lang">
-            {{ lang }}
-          </option>
-        </select>
-      </div>
+
+      <form [formGroup]="filterForm">
+        <div class="mb-4">
+          <input
+            type="text"
+            placeholder="Search by name or creator"
+            class="p-2 border rounded w-full"
+            formControlName="search"
+          />
+        </div>
+        <div class="mb-4">
+          <select class="p-2 border rounded w-full" formControlName="language">
+            <option value="">All Languages</option>
+            <option *ngFor="let lang of languages" [value]="lang">
+              {{ lang }}
+            </option>
+          </select>
+        </div>
+      </form>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="p-4" *ngFor="let product of filteredProducts">
           <app-product-list-item
