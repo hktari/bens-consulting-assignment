@@ -118,5 +118,12 @@
       "id": 333333,
       "name": "Test Company 3"
     }
-  ]
+  ],
+  "product-filters": {
+    "uniqueLanguages": [
+      "en",
+      "hr",
+      "sl"
+    ]
+  }
 }

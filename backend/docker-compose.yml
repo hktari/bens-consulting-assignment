@@ -1,0 +1,15 @@
+services:
+  generate-db-json:
+    build:
+      context: ./generateDbJson
+      dockerfile: Dockerfile
+    volumes:
+      - ./dist:/app/dist
+  api:
+    depends_on:
+      - generate-db-json
+    image: codfish/json-server:0.17.3
+    ports:
+      - 9999:80
+    volumes:
+      - ./dist/db.json:/app/db.json
