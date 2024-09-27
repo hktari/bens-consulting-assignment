@@ -14,5 +14,5 @@ import { NgOptimizedImage } from '@angular/common';
   />`,
 })
 export class LogoComponent {
-  logoUrl = '/assets/images/bens-logo.png';
+  logoUrl = '/assets/img/bens-logo.png';
 }
