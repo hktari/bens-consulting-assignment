@@ -17,8 +17,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-product-list',
   template: `
     <div class="container mx-auto p-10">
-      <h1 class="text-4xl font-bold mb-4">Products</h1>
-
       <form [formGroup]="filterForm">
         <div class="mb-4">
           <input
@@ -72,7 +70,10 @@ export class ProductListComponent implements OnInit {
     this.productStore.getProducts().subscribe((products) => {
       this.products = products;
       this.filteredProducts = products;
-      this.languages = this.getUniqueLanguages(products);
+    });
+
+    this.productStore.fetchFilterOptions().subscribe(({ uniqueLanguages }) => {
+      this.languages = uniqueLanguages;
     });
 
     this.filterForm.valueChanges.subscribe(() => {
@@ -95,13 +96,5 @@ export class ProductListComponent implements OnInit {
         (product.languages && product.languages.includes(language));
       return matchesSearch && matchesLanguage;
     });
-  }
-
-  getUniqueLanguages(products: Product[]): string[] {
-    const languages = products
-      .map((product) => product.languages)
-      .filter((langs) => langs)
-      .flatMap((langs) => langs.split(',').map((lang) => lang.trim()));
-    return Array.from(new Set(languages));
   }
 }

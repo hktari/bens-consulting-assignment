@@ -71,4 +71,10 @@ export class ProductStore {
       )
       .subscribe();
   }
+
+  fetchFilterOptions(): Observable<{ uniqueLanguages: string[] }> {
+    return this.http.get<{ uniqueLanguages: string[] }>(
+      this._appendToBaseURL('/product-filters')
+    );
+  }
 }
