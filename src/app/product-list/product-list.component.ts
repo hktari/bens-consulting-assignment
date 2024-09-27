@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 import { ProductListItemComponent } from '../components/product-list-item/product-list-item.component';
 import { Product, ProductId } from '../models/product.model';
 import { ProductStore } from '../stores/product.store';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [RouterLink, ProductListItemComponent],
+  imports: [RouterLink, ProductListItemComponent, CommonModule],
   selector: 'app-product-list',
   template: `
     <div class="container mx-auto p-10">
@@ -23,7 +24,9 @@ import { ProductStore } from '../stores/product.store';
       <div class="mb-4">
         <select class="p-2 border rounded w-full" formControlName="language">
           <option value="">All Languages</option>
-          <option *ngFor="let lang of languages" [value]="lang">{{ lang }}</option>
+          <option *ngFor="let lang of languages" [value]="lang">
+            {{ lang }}
+          </option>
         </select>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -33,7 +36,10 @@ import { ProductStore } from '../stores/product.store';
             (delete)="deleteProduct($event)"
           ></app-product-list-item>
         </div>
-        <div *ngIf="filteredProducts.length === 0" class="text-center text-gray-500">
+        <div
+          *ngIf="filteredProducts.length === 0"
+          class="text-center text-gray-500"
+        >
           No products found
         </div>
       </div>
@@ -77,7 +83,8 @@ export class ProductListComponent implements OnInit {
         product.product_name.toLowerCase().includes(search.toLowerCase()) ||
         product.created_by.toLowerCase().includes(search.toLowerCase());
       const matchesLanguage =
-        !language || (product.languages && product.languages.includes(language));
+        !language ||
+        (product.languages && product.languages.includes(language));
       return matchesSearch && matchesLanguage;
     });
   }
@@ -89,4 +96,4 @@ export class ProductListComponent implements OnInit {
       .flatMap((langs) => langs.split(',').map((lang) => lang.trim()));
     return Array.from(new Set(languages));
   }
-`
+}

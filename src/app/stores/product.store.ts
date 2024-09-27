@@ -1,58 +1,74 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { signal } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Product, ProductId } from '../models/product.model';
 import { environment } from '../../environments/environment';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductStore {
-  private products = signal<Product[]>([]);
+  private productsSubject = new BehaviorSubject<Product[]>([]);
+  products$ = this.productsSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  _appendToBaseURL(url: string) {
+  private _appendToBaseURL(url: string): string {
     return new URL(url, environment.apiUrl).toString();
   }
 
-  getProducts() {
-    return this.products();
+  getProducts(): Observable<Product[]> {
+    return this.products$;
   }
 
-  fetchSingleProduct(id: ProductId) {
+  fetchSingleProduct(id: ProductId): Observable<Product> {
     return this.http.get<Product>(this._appendToBaseURL(`/products/${id}`));
   }
 
-  fetchProducts() {
+  fetchProducts(): void {
     this.http
       .get<Product[]>(this._appendToBaseURL('/products'))
-      .subscribe((data) => this.products.set(data));
+      .pipe(tap((data) => this.productsSubject.next(data)))
+      .subscribe();
   }
 
-  addProduct(product: Product) {
+  addProduct(product: Product): void {
     this.http
       .post<Product>(this._appendToBaseURL('/products'), product)
-      .subscribe((newProduct) =>
-        this.products.update((products) => [...products, newProduct])
-      );
+      .pipe(
+        tap((newProduct) =>
+          this.productsSubject.next([...this.productsSubject.value, newProduct])
+        )
+      )
+      .subscribe();
   }
 
-  updateProduct(product: Product) {
+  updateProduct(product: Product): void {
     this.http
       .put<Product>(this._appendToBaseURL(`products/${product.id}`), product)
-      .subscribe((updatedProduct) =>
-        this.products.update((products) =>
-          products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
+      .pipe(
+        tap((updatedProduct) =>
+          this.productsSubject.next(
+            this.productsSubject.value.map((p) =>
+              p.id === updatedProduct.id ? updatedProduct : p
+            )
+          )
         )
-      );
+      )
+      .subscribe();
   }
 
-  deleteProduct(id: ProductId) {
+  deleteProduct(id: ProductId): void {
     this.http
       .delete(this._appendToBaseURL(`products/${id}`))
-      .subscribe(() =>
-        this.products.update((products) => products.filter((p) => p.id !== id))
-      );
+      .pipe(
+        tap(() =>
+          this.productsSubject.next(
+            this.productsSubject.value.filter((p) => p.id !== id)
+          )
+        )
+      )
+      .subscribe();
   }
 }
