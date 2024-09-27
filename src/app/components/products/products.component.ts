@@ -10,7 +10,7 @@ import { ProductListComponent } from '../../product-list/product-list.component'
   imports: [RouterLink, ProductListItemComponent, ProductListComponent],
   selector: 'app-products',
   template: `
-    <div class="container mx-auto p-2 md:p-10">
+    <div class="container mx-auto p-3 pt-5 md:p-10">
       <app-product-list />
     </div>
   `,

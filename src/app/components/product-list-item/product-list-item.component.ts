@@ -35,7 +35,7 @@ import { NgOptimizedImage } from '@angular/common';
             class="object-contain w-full h-full"
             alt="product image"
           />
-          <div>
+          <div class="space-y-1">
             <h2 class="text-lg font-semibold flex-grow">
               {{ product.product_name }}
             </h2>
