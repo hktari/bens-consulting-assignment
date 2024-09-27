@@ -6,6 +6,12 @@ const companiesFilePath = path.join(__dirname, 'data', 'companies.json');
 const productDetailsFolderPath = path.join(__dirname, 'data', 'product-details');
 const outputFilePath = path.join(__dirname, 'db.json');
 
+const extractLanguageAbbrev = (htmlString) => {
+  const regex = /<span.*>(.+?)<\/span>/;
+  const match = htmlString.match(regex);
+  return match ? match[1] : null;
+};
+
 const generateDbJson = async () => {
   try {
     // Read the products JSON file
@@ -30,10 +36,23 @@ const generateDbJson = async () => {
       }
     }
 
+      // Extract unique languages
+      const uniqueLanguages = [
+        ...new Set(productsData.flatMap(product => {
+          if (product.languages) {
+            return product.languages.split(',').map(lang => extractLanguageAbbrev(lang.trim()));
+          }
+          return [];
+        }))
+      ];
+
     // Create the output format
     const outputData = {
       products: productsData,
-      companies: companiesData
+      companies: companiesData,
+      "product-filters": {
+        uniqueLanguages
+      }
     };
 
     // Write the output data to db.json
